@@ -2,6 +2,7 @@ package oop.lab1.serbin.service;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import oop.lab1.serbin.model.Vegetable;
@@ -41,6 +42,18 @@ public class Salad {
 
     public List<Vegetable> getVegetables() {
         return Collections.unmodifiableList(vegetables);
+    }
+
+    public List<Vegetable> sortByCalories() {
+        List<Vegetable> sorted = new ArrayList<>(vegetables);
+        sorted.sort(Comparator.comparingDouble(Vegetable::getCalories));
+        return sorted;
+    }
+
+    public List<Vegetable> sortByWeight() {
+        List<Vegetable> sorted = new ArrayList<>(vegetables);
+        sorted.sort(Comparator.comparingDouble(Vegetable::getWeightGrams));
+        return sorted;
     }
 
     @Override
