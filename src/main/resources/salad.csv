@@ -1,0 +1,7 @@
+# type;name;weightGrams;caloriesPer100g;extra
+LEAFY;Lettuce;150;15;true
+LEAFY;Spinach;100;23;false
+ROOT;Carrot;120;41;15
+ROOT;Beetroot;100;43;20
+FRUITING;Tomato;130;20;true
+FRUITING;Cucumber;180;16;true
