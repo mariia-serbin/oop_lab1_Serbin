@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import oop.lab1.serbin.model.Vegetable;
 
@@ -54,6 +55,16 @@ public class Salad {
         List<Vegetable> sorted = new ArrayList<>(vegetables);
         sorted.sort(Comparator.comparingDouble(Vegetable::getWeightGrams));
         return sorted;
+    }
+
+    public List<Vegetable> findByCalorieRange(double min, double max) {
+        if (min > max) {
+            throw new IllegalArgumentException("Min must not exceed max");
+        }
+        return vegetables.stream()
+                .filter(vegetable -> vegetable.getCaloriesPer100g() >= min
+                        && vegetable.getCaloriesPer100g() <= max)
+                .collect(Collectors.toList());
     }
 
     @Override
