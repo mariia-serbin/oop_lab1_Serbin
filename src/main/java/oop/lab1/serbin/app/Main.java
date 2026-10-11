@@ -3,6 +3,7 @@ package oop.lab1.serbin.app;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.Scanner;
 
 import oop.lab1.serbin.io.CsvVegetableReader;
 import oop.lab1.serbin.io.PropertiesSaladConfigReader;
@@ -18,6 +19,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         SaladService service = loadService();
         printReport(service);
+        runMenu(service, new Scanner(System.in));
     }
 
     private static SaladService loadService() throws IOException {
@@ -45,14 +47,55 @@ public class Main {
         System.out.println("Salad: " + config.getSaladName());
         System.out.printf("Total calories: %.2f kcal%n", service.getTotalCalories());
 
-        System.out.println("Sorted vegetables:");
-        for (Vegetable vegetable : service.getSortedVegetables()) {
-            System.out.println("  " + vegetable);
-        }
+        printVegetables("Sorted vegetables:", service.getSortedVegetables());
 
-        System.out.printf("Vegetables in calorie range %.0f..%.0f kcal/100g:%n",
-                config.getCalorieRangeMin(), config.getCalorieRangeMax());
-        for (Vegetable vegetable : service.findVegetablesInRange()) {
+        printVegetables(String.format("Vegetables in calorie range %.0f..%.0f kcal/100g:",
+                config.getCalorieRangeMin(), config.getCalorieRangeMax()),
+                service.findVegetablesInRange());
+        System.out.println();
+    }
+
+    private static void runMenu(SaladService service, Scanner scanner) {
+        boolean running = true;
+        while (running) {
+            printMenu();
+            String input = scanner.nextLine().trim();
+            switch (input) {
+                case "1":
+                    System.out.printf("Total calories: %.2f kcal%n", service.getTotalCalories());
+                    break;
+                case "2":
+                    printVegetables("Sorted vegetables:", service.getSortedVegetables());
+                    break;
+                case "3":
+                    SaladConfig config = service.getConfig();
+                    printVegetables(String.format(
+                            "Vegetables in calorie range %.0f..%.0f kcal/100g:",
+                            config.getCalorieRangeMin(), config.getCalorieRangeMax()),
+                            service.findVegetablesInRange());
+                    break;
+                case "0":
+                    running = false;
+                    System.out.println("Bye");
+                    break;
+                default:
+                    System.out.println("Unknown option: " + input);
+            }
+            System.out.println();
+        }
+    }
+
+    private static void printMenu() {
+        System.out.println("1 - total calories");
+        System.out.println("2 - sorted vegetables");
+        System.out.println("3 - vegetables in calorie range");
+        System.out.println("0 - exit");
+        System.out.print("Your choice: ");
+    }
+
+    private static void printVegetables(String title, List<Vegetable> vegetables) {
+        System.out.println(title);
+        for (Vegetable vegetable : vegetables) {
             System.out.println("  " + vegetable);
         }
     }
