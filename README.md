@@ -1,18 +1,55 @@
-## Getting Started
+# Овочевий салат (Лабораторна робота №1, ООП)
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Консольний застосунок на Java: будує салат з овочів, рахує його калорійність,
+сортує овочі за заданим параметром і знаходить овочі в указаному діапазоні калорійності.
 
-## Folder Structure
+## Технології
 
-The workspace contains two folders by default, where:
+- Java 21
+- Gradle (wrapper)
+- JUnit 5, Mockito
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Структура пакетів
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+- `oop.lab1.serbin.model` — ієрархія овочів
+- `oop.lab1.serbin.service` — логіка салату
+- `oop.lab1.serbin.io` — читання даних з файлів
+- `oop.lab1.serbin.app` — консольний вхід
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+## Ієрархія овочів
 
-## Dependency Management
+```
+Vegetable (abstract)
+├── LeafyVegetable
+├── RootVegetable
+└── FruitingVegetable
+```
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+`Vegetable` інкапсулює назву, вагу (г) і калорійність на 100 г; калорійність порції
+рахується як `weight / 100 * caloriesPer100g`. Кожен нащадок додає власне поле та
+перевизначає `getCategory()` (поліморфізм).
+
+## Вхідні файли (`src/main/resources`)
+
+- `salad.csv` — овочі салату, формат: `type;name;weightGrams;caloriesPer100g;extra`,
+  де `type` = `LEAFY` / `ROOT` / `FRUITING`
+- `salad.properties`:
+  - `salad.name` — назва салату
+  - `salad.sort.parameter` — `CALORIES` або `WEIGHT`
+  - `salad.calorie.range.min`, `salad.calorie.range.max` — діапазон (ккал/100 г)
+
+## Запуск
+
+```
+./gradlew run
+```
+
+Меню: `1` — калорійність, `2` — сортування, `3` — пошук за діапазоном, `0` — вихід.
+
+## Тести
+
+```
+./gradlew test
+```
+
+68 unit-тестів (JUnit 5 + Mockito) покривають усі класи.
