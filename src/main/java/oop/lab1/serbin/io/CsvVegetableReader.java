@@ -13,6 +13,10 @@ import oop.lab1.serbin.model.LeafyVegetable;
 import oop.lab1.serbin.model.RootVegetable;
 import oop.lab1.serbin.model.Vegetable;
 
+/**
+ * Reads vegetables from CSV data. Each non-empty line that does not start with
+ * {@code #} has the format {@code type;name;weightGrams;caloriesPer100g;extra}.
+ */
 public class CsvVegetableReader implements VegetableReader {
 
     private static final String SEPARATOR = ";";

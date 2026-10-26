@@ -6,6 +6,9 @@ import java.util.Properties;
 
 import oop.lab1.serbin.service.SaladConfig;
 
+/**
+ * Reads salad configuration from a {@link Properties} file.
+ */
 public class PropertiesSaladConfigReader implements SaladConfigReader {
 
     private static final String KEY_NAME = "salad.name";

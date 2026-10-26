@@ -11,11 +11,21 @@ import oop.lab1.serbin.model.Vegetable;
 import oop.lab1.serbin.service.SaladConfig;
 import oop.lab1.serbin.service.SaladService;
 
+/**
+ * Entry point of the application. Loads the salad data from the bundled
+ * resources, prints the report and starts the console menu.
+ */
 public class Main {
 
     private static final String VEGETABLES_RESOURCE = "/salad.csv";
     private static final String CONFIG_RESOURCE = "/salad.properties";
 
+    /**
+     * Starts the application.
+     *
+     * @param args the command line arguments (not used)
+     * @throws IOException if a resource cannot be read
+     */
     public static void main(String[] args) throws IOException {
         SaladService service = loadService();
         ConsoleReporter reporter = new ConsoleReporter(System.out);
